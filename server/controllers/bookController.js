@@ -1,4 +1,4 @@
-const { retrieveUserBooks } = require("../models/bookModel");
+const { retrieveUserBooks, retrieveOneBook } = require("../models/bookModel");
 
 const getAllBooks  = async(req, res) => {
     try {
@@ -15,4 +15,19 @@ const getAllBooks  = async(req, res) => {
     }
 }
 
-module.exports = { getAllBooks };
+const getSpecificBook  = async(req, res) => {
+    try {
+        const book = await retrieveOneBook(req.user.userId, req.params.id);
+        return res.status(200).json({
+            book
+        })
+    }
+    catch(error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Unable to retrieve book."
+        })
+    }
+}
+
+module.exports = { getAllBooks,getSpecificBook };
