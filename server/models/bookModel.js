@@ -31,6 +31,11 @@ const addUserBook = async(userId, book_name, author_name, review, spine_color, s
     await pool.query(query, values);
 }
 
+const editUserBook = async(query, valArray) => {
+    const result = await pool.query(query, valArray);
+    return result.rows[0];
+}
+
 const deleteUserBook = async(userId, bookId) => {
     const query = `
     DELETE FROM books 
@@ -41,4 +46,4 @@ const deleteUserBook = async(userId, bookId) => {
     return result.rows[0];
 }
 
-module.exports = { retrieveUserBooks, retrieveOneBook, addUserBook, deleteUserBook };
+module.exports = { retrieveUserBooks, retrieveOneBook, addUserBook, editUserBook, deleteUserBook };
