@@ -20,4 +20,14 @@ const retrieveOneBook = async (userId, bookId) => {
     return result.rows[0];
 }
 
-module.exports = { retrieveUserBooks, retrieveOneBook };
+const deleteUserBook = async(userId, bookId) => {
+    const query = `
+    DELETE FROM books 
+    WHERE user_id=$1 AND id=$2
+    RETURNING id
+    `
+    const result = await pool.query(query, [userId, bookId]);
+    return result.rows[0];
+}
+
+module.exports = { retrieveUserBooks, retrieveOneBook, deleteUserBook };

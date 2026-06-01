@@ -1,4 +1,4 @@
-const { retrieveUserBooks, retrieveOneBook } = require("../models/bookModel");
+const { retrieveUserBooks, retrieveOneBook, deleteUserBook } = require("../models/bookModel");
 
 const getAllBooks  = async(req, res) => {
     try {
@@ -30,4 +30,26 @@ const getSpecificBook  = async(req, res) => {
     }
 }
 
-module.exports = { getAllBooks,getSpecificBook };
+const deleteBook  = async(req, res) => {
+    try {
+        const result = await deleteUserBook(req.user.userId, req.params.id);
+        if (result && result.id) {
+            return res.status(200).json({
+                message: "Successfully deleted book."
+            })
+        }
+        else {
+            return res.status(404).json({
+                message: "Could not find book."
+            })
+        }
+    }
+    catch(error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Unable to delete book."
+        })
+    }
+}
+
+module.exports = { getAllBooks,getSpecificBook, deleteBook };
