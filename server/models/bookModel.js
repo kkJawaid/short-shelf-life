@@ -20,6 +20,17 @@ const retrieveOneBook = async (userId, bookId) => {
     return result.rows[0];
 }
 
+const addUserBook = async(userId, book_name, author_name, review, spine_color, spine_design) => {
+    const query = `
+    INSERT INTO Books
+    (user_id, book_name, author_name, review, spine_color, spine_design)
+    VALUES
+    ($1, $2, $3, $4, $5, $6)
+    `
+    const values = [userId, book_name, author_name, review, spine_color, spine_design]
+    await pool.query(query, values);
+}
+
 const deleteUserBook = async(userId, bookId) => {
     const query = `
     DELETE FROM books 
@@ -30,4 +41,4 @@ const deleteUserBook = async(userId, bookId) => {
     return result.rows[0];
 }
 
-module.exports = { retrieveUserBooks, retrieveOneBook, deleteUserBook };
+module.exports = { retrieveUserBooks, retrieveOneBook, addUserBook, deleteUserBook };
