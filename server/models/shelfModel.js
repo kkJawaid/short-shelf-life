@@ -9,4 +9,13 @@ const retrieveOtherShelves = async (id) => {
     return result.rows;
 }
 
-module.exports = { retrieveOtherShelves };
+const retrieveSpecificShelf = async (userId, shelfId) => {
+    const query = `
+    SELECT * FROM Books
+    WHERE user_id != $1 AND user_id=$2
+    `
+    const result = await pool.query(query, [userId, shelfId]);
+    return result.rows;
+}
+
+module.exports = { retrieveOtherShelves, retrieveSpecificShelf };
