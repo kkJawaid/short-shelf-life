@@ -1,20 +1,29 @@
 # API Documentation
 
 ## Overview
-| id | API  | Description |
-|--|-------|----------|
-| 1 | POST /auth/register | To register new users |
-| 2 | POST /auth/login | To login new users |
-| 3 | POST /auth/logout | Allow users to log out of existing session |
-| 4 | GET /auth/current | Allow system to retrieve current user's info |
-| 5 | POST /books | Allows users to add a new book |
-| 6 | GET /books | Allows users to view all the books |
-| 7 | GET /books/:id  | Allows users to view a specific book |
-| 8 | PATCH /books/:id | Allows user to update one or more fields of an existing book |
-| 9 | DELETE /books/:id | Allows users to remove a new book |
-| 10 | GET /shelves | Allows users to view other users' shelves collectievly |
-| 11 | GET /shelves/:id | Allow users to view specific users' shelves |
-
+| id | API  | Description | Status |
+|--|-------|----------|---|
+| 1 | POST /auth/register | To register new users | Complete |
+| 2 | POST /auth/login | To login new users | Complete |
+| 3 | POST /auth/logout | Allow users to log out of existing session | Complete |
+| 4 | GET /user/current | Allow system to retrieve current user's info |Complete |
+| 5 | POST /books | Allows users to add a new book | Complete |
+| 6 | GET /books | Allows users to view all the books | Complete |
+| 7 | GET /books/:id  | Allows users to view a specific book | Complete |
+| 8 | PATCH /books/:id | Allows user to update one or more fields of an existing book |Complete |
+| 9 | DELETE /books/:id | Allows users to remove a new book | Complete |
+| 10 | GET /shelves | Allows users to view other users' shelves collectievly | Complete |
+| 11 | GET /shelves/:id | Allow users to view specific users' shelves | Complete |
+| 12 | GET / | landing page of application |
+| 13 | PATCH /user/shelf | Allow users to edit their  shelf name |
+| 14 | DELETE /user/current | Allow users to delete their profile |
+| 15 | GET /error | Users redirected here if bad api request |
+| 16 | GET /shelves/:id/:bookId | To view specific user's books and their reviews (if applicabe) |
+| 17 | PATCH /user/email | Allow users to edit their email |
+| 18 | PATCH /user/password | Allow users to edit their password |
+| 19 | PATCH /user/privacy | Allow users to toggle their privacy state from public to private, vice versa |
+| 20 | GET /books/search?q=keyword | Allows users to search books by title or author name |
+| 21 | GET /books/filter?hasReview | Allows users to filter based on review presence |
 ## 1: Register User
 
 POST /auth/register <br>
@@ -128,7 +137,7 @@ Yes
 
 ## 4: Get Current User
 
-GET /auth/current <br>
+GET /user/current <br>
 Allows system to retrieve current user's information.
 
 ### Authentication Required
@@ -473,7 +482,8 @@ Yes
 
 GET /shelves <br>
 Allows users to view other users' shelves collectively. <br>
-Only shelf names to be shown.
+Only if user privacy status is public. <br>
+Only shelf names to be shown. 
 
 ### Success Response
 
@@ -508,6 +518,7 @@ Only shelf names to be shown.
 
 GET /shelves/:id <br>
 Allow users to view specific users' shelves.
+Only if user privacy status is public. 
 
 ### URL Parameters
 
@@ -548,3 +559,66 @@ Allow users to view specific users' shelves.
   "message": "Error retrieving shelf"
 }
 ```
+## 12: Landing page of application
+
+GET / <br>
+Landing page / entry point of application. User can have option to login, register, or browse as guest. 
+
+## 13: Edit profile
+
+PATCH /user/shelf <br>
+Allows users to edit their shelf name. 
+
+## 14: Delete profile
+DELETE /user/current <br>
+Allows users to delete their profile. 
+
+## 15: Error Redirection Page
+GET /error <br>
+In case of bad request user redirected here. 
+### Error Responses
+
+404 Not Found
+
+```json
+{
+  "message": "Page not found"
+}
+```
+
+## 16: Viewing specific user's books.
+GET /shelves/:id/:bookId <br>
+Only if user privacy status is public. 
+
+## 17: Reset email.
+PATCH /user/email <br>
+Allows users to reset email.
+
+## 18: Reset Password.
+PATCH /user/password <br>
+Allows users to reset password.
+
+## 19: Privacy State.
+PATCH /user/privacy <br>
+Allows users to toggle privacy state. Authorization middleware to be implemented. 
+
+## 20: Search books.
+GET /books/search?q=keyword <br>
+Allows users to search books by title or author name.
+```json
+[
+  {
+    "id": 1,
+    "book_name": "Dune",
+    "author_name": "Frank Herbert"
+  },
+  {
+    "id": 2,
+    "book_name": "Dune Messiah",
+    "author_name": "Frank Herbert"
+  }
+]
+```
+## 21: Filter books with reviews.
+GET /books/filter?hasReview=true <br>
+Allows users to filter books based on whether they have review or not. hasReview is a bool value. 
