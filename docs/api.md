@@ -15,7 +15,7 @@
 | 10 | GET /shelves | Allows users to view other users' shelves collectievly | Complete |
 | 11 | GET /shelves/:id | Allow users to view specific users' shelves | Complete |
 | 12 | GET / | landing page of application |
-| 13 | PATCH /user/shelf | Allow users to edit their  shelf name |
+| 13 | PATCH /user/shelf | Allow users to edit their  shelf name | Complete |
 | 14 | DELETE /user/current | Allow users to delete their profile |
 | 15 | GET /error | Users redirected here if bad api request |
 | 16 | GET /shelves/:id/:bookId | To view specific user's books and their reviews (if applicabe) |

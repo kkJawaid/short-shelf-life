@@ -10,4 +10,13 @@ const retrieveUserInfo = async(id) => {
     return result.rows[0];
 }
 
-module.exports = { retrieveUserInfo }
+const editShelfModel = async(id, newShelf) => {
+    const query=`
+    UPDATE users
+    SET shelf_name=$1
+    WHERE id=$2
+    `
+    await pool.query(query, [newShelf, id]);
+}
+
+module.exports = { retrieveUserInfo, editShelfModel }
