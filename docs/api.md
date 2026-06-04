@@ -21,7 +21,7 @@
 | 16 | GET /shelves/:id/:bookId | To view specific user's books and their reviews (if applicabe) |
 | 17 | PATCH /user/email | Allow users to edit their email | Complete |
 | 18 | PATCH /user/password | Allow users to edit their password |
-| 19 | PATCH /user/privacy | Allow users to toggle their privacy state from public to private, vice versa |
+| 19 | PATCH /user/privacy | Allow users to toggle their privacy state from public to private, vice versa | Complete |
 | 20 | GET /books/search?q=keyword | Allows users to search books by title or author name |
 | 21 | GET /books/filter?hasReview | Allows users to filter based on review presence |
 ## 1: Register User
@@ -600,7 +600,14 @@ Allows users to reset password.
 
 ## 19: Privacy State.
 PATCH /user/privacy <br>
-Allows users to toggle privacy state. Authorization middleware to be implemented. 
+Allows users to toggle privacy state. Authorization middleware to be implemented. <br>
+Request format:
+```
+json
+{
+  "privacy": true (or false)
+}
+```
 
 ## 20: Search books.
 GET /books/search?q=keyword <br>

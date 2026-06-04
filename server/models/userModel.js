@@ -2,7 +2,7 @@ const pool = require("../config/db");
 
 const retrieveUserInfo = async(id) => {
     const query = `
-    SELECT shelf_name, email 
+    SELECT shelf_name, email, privacy
     FROM USERS 
     WHERE id=$1
     `
@@ -28,4 +28,13 @@ const editEmailModel = async(id, newEmail) => {
     await pool.query(query, [newEmail, id]);
 }
 
-module.exports = { retrieveUserInfo, editShelfModel, editEmailModel }
+const editPrivacyModel = async(id, privacy) => {
+    const query=`
+    UPDATE users
+    SET privacy=$1
+    WHERE id=$2
+    `
+    await pool.query(query, [privacy, id]);
+}
+
+module.exports = { retrieveUserInfo, editShelfModel, editEmailModel, editPrivacyModel }

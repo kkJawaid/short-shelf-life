@@ -1,4 +1,4 @@
-const { retrieveUserInfo, editShelfModel, editEmailModel } = require("../models/userModel");
+const { retrieveUserInfo, editShelfModel, editEmailModel, editPrivacyModel } = require("../models/userModel");
 
 const getUser = async (req, res) => {
     try {
@@ -65,4 +65,33 @@ const editEmail = async (req, res) => {
     }
 }
 
-module.exports = { getUser, editShelf, editEmail };
+const editPrivacy = async (req, res) => {
+    try {
+        if (req.body.privacy === undefined) {
+            return res.status(400).json({
+                message: "Privacy field cannot be empty."
+            });
+        }
+        if (typeof req.body.privacy !== "boolean") {
+            return res.status(400).json({
+                message: "Privacy must be a boolean."
+            });
+        }
+        // if public, frontend will send true
+        // if private, frontend will send false
+        let privacyStatus = req.body.privacy ? "private" : "public";
+
+        await editPrivacyModel(req.user.userId, privacyStatus);
+        return res.status(200).json({
+            message: "Successfully updated privacy status"
+        })
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Error while updating privacy status. Please try again"
+        })
+    }
+}
+
+module.exports = { getUser, editShelf, editEmail, editPrivacy };
