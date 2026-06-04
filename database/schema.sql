@@ -1,8 +1,11 @@
+CREATE TYPE privacy_enum AS ENUM ('private', 'public');
+
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     shelf_name VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
-    password_hash TEXT NOT NULL
+    password_hash TEXT NOT NULL,
+    privacy privacy_enum NOT NULL DEFAULT 'public'
 );
 
 CREATE TABLE books (
