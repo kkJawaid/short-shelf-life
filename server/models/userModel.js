@@ -19,4 +19,13 @@ const editShelfModel = async(id, newShelf) => {
     await pool.query(query, [newShelf, id]);
 }
 
-module.exports = { retrieveUserInfo, editShelfModel }
+const editEmailModel = async(id, newEmail) => {
+    const query=`
+    UPDATE users
+    SET email=$1
+    WHERE id=$2
+    `
+    await pool.query(query, [newEmail, id]);
+}
+
+module.exports = { retrieveUserInfo, editShelfModel, editEmailModel }

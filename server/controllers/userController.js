@@ -1,4 +1,4 @@
-const { retrieveUserInfo, editShelfModel } = require("../models/userModel");
+const { retrieveUserInfo, editShelfModel, editEmailModel } = require("../models/userModel");
 
 const getUser = async (req, res) => {
     try {
@@ -44,4 +44,25 @@ const editShelf = async (req, res) => {
     }
 }
 
-module.exports = { getUser, editShelf };
+const editEmail = async (req, res) => {
+    try {
+        if (!req.body.emailName || req.body.emailName.trim() === "") {
+            return res.status(400).json({
+                message: "Email field cannot be empty."
+            });
+        }
+
+        await editEmailModel(req.user.userId, req.body.emailName);
+        return res.status(200).json({
+            message: "Successfully updated email"
+        })
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Error while updating email. Please try again"
+        })
+    }
+}
+
+module.exports = { getUser, editShelf, editEmail };
