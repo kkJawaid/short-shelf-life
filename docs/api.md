@@ -14,7 +14,7 @@
 | 9 | DELETE /books/:id | Allows users to remove a new book | Complete |
 | 10 | GET /shelves | Allows users to view other users' shelves collectievly | Complete |
 | 11 | GET /shelves/:id | Allow users to view specific users' shelves | Complete |
-| 12 | GET / | landing page of application |
+| 12 | GET / | landing page of application | Complete |
 | 13 | PATCH /user/shelf | Allow users to edit their  shelf name | Complete |
 | 14 | DELETE /user/current | Allow users to delete their profile | Complete |
 | 15 | GET /error | Users redirected here if bad api request | Complete |
