@@ -37,4 +37,14 @@ const editPrivacyModel = async(id, privacy) => {
     await pool.query(query, [privacy, id]);
 }
 
-module.exports = { retrieveUserInfo, editShelfModel, editEmailModel, editPrivacyModel }
+const deleteUserModel = async(id) => {
+    const query = `
+    DELETE FROM USERS
+    WHERE id = $1
+    RETURNING id
+    `
+    const result = await pool.query(query, [id]);
+    return result.rows[0];
+}
+
+module.exports = { retrieveUserInfo, editShelfModel, editEmailModel, editPrivacyModel, deleteUserModel }

@@ -1,4 +1,4 @@
-const { retrieveUserInfo, editShelfModel, editEmailModel, editPrivacyModel } = require("../models/userModel");
+const { retrieveUserInfo, editShelfModel, editEmailModel, editPrivacyModel, deleteUserModel } = require("../models/userModel");
 
 const getUser = async (req, res) => {
     try {
@@ -94,4 +94,27 @@ const editPrivacy = async (req, res) => {
     }
 }
 
-module.exports = { getUser, editShelf, editEmail, editPrivacy };
+const deleteUser = async(req,res) => {
+    try{
+        const result = await deleteUserModel(req.user.userId);
+        if (!result) {
+            return res.status(400).json({
+                message: "User id not found"
+            })
+        }
+        res.clearCookie("token", {
+            httpOnly:true
+        })
+        return res.status(200).json({
+            message: "Successfully deleted user"
+        })
+    }
+    catch(error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Error while deleting user. Please try again."
+        })
+    }
+}
+
+module.exports = { getUser, editShelf, editEmail, editPrivacy, deleteUser };
