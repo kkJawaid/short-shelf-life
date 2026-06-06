@@ -28,6 +28,23 @@ const editEmailModel = async(id, newEmail) => {
     await pool.query(query, [newEmail, id]);
 }
 
+const retrievePassword = async(id) => {
+    const query = `
+    SELECT password_hash FROM users
+    WHERE id=$1
+    `
+    const result = await pool.query(query, [id]);
+    return result.rows[0];
+}
+const editPasswordModel = async(id, newPassword) => {
+    const query = `
+    UPDATE users 
+    SET password_hash=$1
+    WHERE id=$2
+    `
+    await pool.query(query, [newPassword, id]);
+}
+
 const editPrivacyModel = async(id, privacy) => {
     const query=`
     UPDATE users
@@ -47,4 +64,4 @@ const deleteUserModel = async(id) => {
     return result.rows[0];
 }
 
-module.exports = { retrieveUserInfo, editShelfModel, editEmailModel, editPrivacyModel, deleteUserModel }
+module.exports = { retrieveUserInfo, editShelfModel, editEmailModel, retrievePassword, editPasswordModel, editPrivacyModel, deleteUserModel }

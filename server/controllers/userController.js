@@ -1,4 +1,5 @@
-const { retrieveUserInfo, editShelfModel, editEmailModel, editPrivacyModel, deleteUserModel } = require("../models/userModel");
+const bcrypt = require('bcrypt');
+const { retrieveUserInfo, editShelfModel, editEmailModel, retrievePassword, editPasswordModel, editPrivacyModel, deleteUserModel } = require("../models/userModel");
 
 const getUser = async (req, res) => {
     try {
@@ -65,6 +66,34 @@ const editEmail = async (req, res) => {
     }
 }
 
+const editPassword = async (req, res) => {
+    try {
+        if (!req.body.newPassword || req.body.newPassword.trim() === "") {
+            return res.status(400).json({
+                message: "Password cannot be empty."
+            });
+        }
+        const user = await retrievePassword(req.user.userId);
+        const result = await bcrypt.compare(req.body.newPassword, user.password_hash);
+        if (result) {
+            return res.status(400).json({
+                message: "New password cannot be same as the old password"
+            })
+        }
+        const newHash = await bcrypt.hash(req.body.newPassword, 10);
+        await editPasswordModel(req.user.userId, newHash);
+        return res.status(200).json({
+            message: "Successfully updated password"
+        })
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Error while updating password. Please try again"
+        })
+    }
+}
+
 const editPrivacy = async (req, res) => {
     try {
         if (req.body.privacy === undefined) {
@@ -117,4 +146,4 @@ const deleteUser = async(req,res) => {
     }
 }
 
-module.exports = { getUser, editShelf, editEmail, editPrivacy, deleteUser };
+module.exports = { getUser, editShelf, editEmail, editPassword, editPrivacy, deleteUser };

@@ -20,7 +20,7 @@
 | 15 | GET /error | Users redirected here if bad api request | Complete |
 | 16 | GET /shelves/:id/:bookId | To view specific user's books and their reviews (if applicabe) |
 | 17 | PATCH /user/email | Allow users to edit their email | Complete |
-| 18 | PATCH /user/password | Allow users to edit their password |
+| 18 | PATCH /user/password | Allow users to edit their password | Complete |
 | 19 | PATCH /user/privacy | Allow users to toggle their privacy state from public to private, vice versa | Complete |
 | 20 | GET /books/search?q=keyword | Allows users to search books by title or author name |
 | 21 | GET /books/filter?hasReview | Allows users to filter based on review presence |
