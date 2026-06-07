@@ -7,11 +7,11 @@
 | 2 | POST /auth/login | To login new users | Complete |
 | 3 | POST /auth/logout | Allow users to log out of existing session | Complete |
 | 4 | GET /user/current | Allow system to retrieve current user's info |Complete |
-| 5 | POST /books | Allows users to add a new book | Complete |
-| 6 | GET /books | Allows users to view all the books | Complete |
-| 7 | GET /books/:id  | Allows users to view a specific book | Complete |
-| 8 | PATCH /books/:id | Allows user to update one or more fields of an existing book |Complete |
-| 9 | DELETE /books/:id | Allows users to remove a new book | Complete |
+| 5 | POST /books | Allows users to add a new book to their shelf | Complete |
+| 6 | GET /books | Allows users to view all their books | Complete |
+| 7 | GET /books/:id  | Allows users to view a specific book from their shelf | Complete |
+| 8 | PATCH /books/:id | Allows user to update one or more fields of their existing book |Complete |
+| 9 | DELETE /books/:id | Allows users to remove a book from their shelf | Complete |
 | 10 | GET /shelves | Allows users to view other users' shelves collectievly | Complete |
 | 11 | GET /shelves/:id | Allow users to view specific users' shelves | Complete |
 | 12 | GET / | landing page of application | Complete |
@@ -22,8 +22,6 @@
 | 17 | PATCH /user/email | Allow users to edit their email | Complete |
 | 18 | PATCH /user/password | Allow users to edit their password | Complete |
 | 19 | PATCH /user/privacy | Allow users to toggle their privacy state from public to private, vice versa | Complete |
-| 20 | GET /books/search?q=keyword | Allows users to search books by title or author name |
-| 21 | GET /books/filter?hasReview | Allows users to filter based on review presence |
 ## 1: Register User
 
 POST /auth/register <br>
@@ -608,24 +606,3 @@ json
   "privacy": true (or false)
 }
 ```
-
-## 20: Search books.
-GET /books/search?q=keyword <br>
-Allows users to search books by title or author name.
-```json
-[
-  {
-    "id": 1,
-    "book_name": "Dune",
-    "author_name": "Frank Herbert"
-  },
-  {
-    "id": 2,
-    "book_name": "Dune Messiah",
-    "author_name": "Frank Herbert"
-  }
-]
-```
-## 21: Filter books with reviews.
-GET /books/filter?hasReview=true <br>
-Allows users to filter books based on whether they have review or not. hasReview is a bool value. 
